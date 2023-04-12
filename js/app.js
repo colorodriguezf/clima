@@ -28,10 +28,11 @@ function requestApi(city){
     api = `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&appid=${API_KEY}`;
     fetchData();
 }
+https://pro.openweathermap.org/data/2.5/forecast/hourly?lat={lat}&lon={lon}&appid={API key}
 
 function onSuccess(position){
     const {latitude, longitude} = position.coords;
-    api = `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&units=metric&appid=${API_KEY}`;
+    api = `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&appid=${API_KEY}`;
     fetchData();
 }
 
@@ -43,7 +44,9 @@ function onError(error){
 function fetchData(){
     infoTxt.innerText = "Getting weather details...";
     infoTxt.classList.add("pending");
-    fetch(api).then(res => res.json()).then(result => weatherDetails(result)).catch(() =>{
+    fetch(api).then(res => res.json()).
+    then(result => weatherDetails(result)).
+    catch(() =>{
         infoTxt.innerText = "Something went wrong";
         infoTxt.classList.replace("pending", "error");
     });
@@ -52,7 +55,7 @@ function fetchData(){
 function weatherDetails(info){
     if(info.cod == "404"){
         infoTxt.classList.replace("pending", "error");
-        infoTxt.innerText = `${inputField.value} isn't a valid city name`;
+        infoTxt.innerText = `${inputField.value} nombre de la ciudad invalido`;
     }else{
         const city = info.name;
         const country = info.sys.country;
@@ -72,7 +75,6 @@ function weatherDetails(info){
         }else if((id >= 500 && id <= 531) || (id >= 300 && id <= 321)){
             wIcon.src = "icons/lluvia.png";
         }
-        console.log(description);
         weatherPart.querySelector(".temp .numb").innerText = Math.floor(temp);
         weatherPart.querySelector(".weather").innerText = description;
         weatherPart.querySelector(".location span").innerText = `${city}, ${country}`;
