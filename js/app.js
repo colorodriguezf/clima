@@ -31,9 +31,10 @@ function requestApi(city){
 
 function onSuccess(position){
     const {latitude, longitude} = position.coords;
-    api = `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&appid=${API_KEY}`;
+    api = `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&units=metric&appid=${API_KEY}`;
     fetchData();
 }
+
 
 function onError(error){
     infoTxt.innerText = error.message;
@@ -103,7 +104,9 @@ function weatherDetails(info){
 
 arrowBack.addEventListener("click", ()=>{
     wrapper.classList.remove("active");
-    body.classList.remove(bodyclass);
+    if (bodyclass) {
+        body.classList.remove(bodyclass);
+      }
     body.style.backgroundColor = '#c2e5fd';
     bodyclass ="";
 });
