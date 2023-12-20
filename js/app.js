@@ -42,7 +42,7 @@ function onError(error){
 }
 
 function fetchData(){
-    infoTxt.innerText = "Getting weather details...";
+    infoTxt.innerText = "Obteniendo informacion...";
     infoTxt.classList.add("pending");
     fetch(api).then(res => res.json()).
     then(result => weatherDetails(result)).
